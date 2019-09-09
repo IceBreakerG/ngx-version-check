@@ -28,7 +28,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/version.json"
             ],
             "scripts": []
           },
@@ -124,6 +125,42 @@
           }
         }
       }
-    }},
+    },
+    "version-check": {
+      "projectType": "library",
+      "root": "projects/version-check",
+      "sourceRoot": "projects/version-check/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/version-check/tsconfig.lib.json",
+            "project": "projects/version-check/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/version-check/src/test.ts",
+            "tsConfig": "projects/version-check/tsconfig.spec.json",
+            "karmaConfig": "projects/version-check/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/version-check/tsconfig.lib.json",
+              "projects/version-check/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
   "defaultProject": "ngx-version-check"
 }

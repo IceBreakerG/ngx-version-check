@@ -17,10 +17,19 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "version-check": [
+        "dist/version-check"
+      ],
+      "version-check/*": [
+        "dist/version-check/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
-  }
+  },
+  "exclude": ["dist"]
 }

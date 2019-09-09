@@ -7,7 +7,12 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dev": "ng serve --host=0.0.0.0 --disable-host-check",
+    "create-package": "npm run build-library && npm run package-library",
+    "build-library": "ng build version-check",
+    "postbuild-library": "xcopy /i /y /z projects\\version-check\\src\\build\\* dist\\version-check\\build && xcopy /i /y /z projects\\version-check\\src\\assets\\* dist\\version-check\\assets",
+    "package-library": "cd dist/version-check && npm pack"
   },
   "private": true,
   "dependencies": {
@@ -19,12 +24,14 @@
     "@angular/platform-browser": "~8.2.4",
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
+    "moment": "^2.24.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.3",
+    "@angular-devkit/build-ng-packagr": "~0.803.3",
     "@angular/cli": "~8.3.3",
     "@angular/compiler-cli": "~8.2.4",
     "@angular/language-service": "~8.2.4",
@@ -39,8 +46,10 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "ng-packagr": "^5.4.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
+    "tsickle": "^0.37.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
   }
