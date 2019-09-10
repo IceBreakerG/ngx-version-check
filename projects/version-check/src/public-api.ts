@@ -3,4 +3,3 @@
  */
 
 export * from './lib/version-check.service'
-// export * from './lib/version-check.module'

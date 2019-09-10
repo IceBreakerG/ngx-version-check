@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { VersionCheckService } from 'version-check'
 
 @Component({
@@ -6,12 +6,16 @@ import { VersionCheckService } from 'version-check'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'ngx-version-check'
 
-  constructor(public versionCheckService: VersionCheckService) {}
+  constructor(private versionCheckService: VersionCheckService) {}
 
   ngOnInit() {
-    this.versionCheckService.startVersionChecking({ frequency: 20000 })
+    this.versionCheckService.startVersionChecking({ frequency: 30000, notification: this.showNotification })
+  }
+
+  showNotification() {
+    alert('New Version Available')
   }
 }

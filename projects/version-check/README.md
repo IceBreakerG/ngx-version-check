@@ -1,24 +1,96 @@
-# VersionCheck
+The ngx-version-check service is an injectable Angular 8+ service for monitoring and notifying users of a new application version. The service exposes a boolean property (`NewVersionAvailable`) showing if a new version is available, or can accept a function to call to handle the actual notification. The project was created as another resource for a new framework at work. Note: This service has a dependency on [moment.js](https://momentjs.com/).
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.4.
+To install, use the command:
 
-## Code scaffolding
+`npm install --save ngx-version-check moment`
 
-Run `ng generate component component-name --project version-check` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project version-check`.
-> Note: Don't forget to add `--project version-check` or else it will be added to the default project in your `angular.json` file. 
+## Usage Instructions
 
-## Build
+In your angular.json file, add the library's assets folder to the assets array:
 
-Run `ng build version-check` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
+"assets": [
+  "src/favicon.ico",
+  "src/assets",
+  {
+    "glob": "**/*",
+    "input": "./node_modules/ngx-version-check/assets",
+    "output": "/"
+  }
+]
+```
 
-## Publishing
+In your AppModule, make sure you are importing the `HttpClientModule`.
 
-After building your library with `ng build version-check`, go to the dist folder `cd dist/version-check` and run `npm publish`.
+```
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
 
-## Running unit tests
+In the component you want to use for starting the service, inject the service in the constructor, and start it (with the configuration or with defaults) in the ngOnInit (or another) method:
 
-Run `ng test version-check` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+import { VersionCheckService } from 'ngx-version-check'
+```
 
-## Further help
+```
+constructor(private versionCheckService: VersionCheckService) {}
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+ngOnInit() {
+  this.versionCheckService.startVersionChecking({
+    frequency: 300000,
+    notification: this.showNotification
+  })
+}
+
+showNotification() {
+  // Handle how you want to display the notification to your users
+  // This method will be called by the service when a new version is available
+}
+```
+
+You can also use the service to display the version and build hash in your application as well. You can do this by making the service injection public, and using the following properties in your template:
+
+**Hash**: The build hash of the application.
+
+**Version**: The version number of the application.
+
+### Available Methods
+
+**startVersionChecking()**: Starts the version check service interval with the specified configuration.
+
+**stopVersionChecking()**: Stops the version check service interval.
+
+### Configuration
+
+**frequency**: (Defaults to 1800000 [30mins]) The time (in milliseconds) to wait between checks.
+**notification**: (Optional) The method
+
+## Build Requirements
+
+In order for the version check service to function, a post build script needs to be run after compiling your angular application so that the correct values are available to the service. The library's assets folder contains a file named `version.json` which is what will get read by the service. In your main `package.json` file, you will need a script, prefixed with `post`, to trigger the post build script, followed by a parameter, which is just the name of your project:
+
+```
+{
+  "name": "consumer",
+  "scripts": {
+    "build": "ng build --prod",
+    "postbuild": "node ./node_modules/ngx-version-check/build/post-build.js consumer"
+  }
+}
+```
+
+Note: The name of your post build script should be whatever you're using to trigger the build (ie. If your build script was named `buildmyproject`, your post built script would be `postbuildmyproject`).
+
+## Current Limitations
+
+Currently, the version check service only supports displaying date version (ie. year.month.day). There may be plans to change this in the future. Don't worry though, the service uses the build hash to compare versions, not the date.

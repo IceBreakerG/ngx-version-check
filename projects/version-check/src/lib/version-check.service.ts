@@ -7,7 +7,10 @@ import { HttpClient } from '@angular/common/http'
 import { interval, Subscription } from 'rxjs'
 
 export interface IVersionCheck {
+  /** (Optional) The notification method to call from the client if there is a new version available. */
   notification?: any
+
+  /** (Required) The frequency in milliseconds (defaults to 30 minutes). */
   frequency: number
 }
 
@@ -15,21 +18,20 @@ export interface IVersionCheck {
   providedIn: 'root'
 })
 export class VersionCheckService {
-  newVersionAvailable: boolean = false
-  versionCheckInterval: Subscription
-
   // These will be replaced by the post-build.js script
-  public currentHash = '{{POST_BUILD_ENTERS_HASH_HERE}}'
-  public version = '{{POST_BUILD_ENTERS_VERSION_HERE}}'
+  private currentHash = '{{POST_BUILD_ENTERS_HASH_HERE}}'
+  private version = '{{POST_BUILD_ENTERS_VERSION_HERE}}'
+
+  // Private properties
+  private newVersionAvailable: boolean = false
+  private versionCheckInterval: Subscription
 
   constructor(private http: HttpClient) {}
 
   /**
    * Starts the version check interval for the specified frequency.
-   * @param notification - (Optional) The notification method to call from the client if there is a new version available.
-   * @param frequency - (Required) The frequency in milliseconds (defaults to 30 minutes).
+   * @param config The configuration parameters for the notification function and version check frequency.
    */
-  // public startVersionChecking(notification: any = null, frequency = 1800000) {
   public startVersionChecking(config: IVersionCheck = { notification: null, frequency: 1800000 }) {
     this.versionCheckInterval = interval(config.frequency).subscribe(() => {
       this.checkVersion(config.notification)
@@ -76,6 +78,16 @@ export class VersionCheckService {
     }
 
     return currentHash !== newHash
+  }
+
+  /** The current build hash of the application */
+  get Hash(): string {
+    return this.currentHash
+  }
+
+  /** The current version number of the application */
+  get Version(): string {
+    return this.version
   }
 
   /** Flag showing if a new version of the application is available. */

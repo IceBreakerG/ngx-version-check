@@ -15,7 +15,7 @@ process.argv.forEach((val, index) => {
 })
 
 let project = process.argv[2]
-let basePath = path.join(__dirname, `../../../../dist/${project}/`)
+let basePath = path.join(__dirname, `../../../dist/${project}/`)
 
 console.log(`\nProject: ${project}`)
 console.log(`Base Path: ${basePath}`)

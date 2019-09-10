@@ -1,6 +1,28 @@
 {
   "name": "ngx-version-check",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "author": {
+    "name": "Eric Garrison"
+  },
+  "description": "Angular 8+ library for version checking.  When a new build is deployed, and customers are currently using the application, this will monitor the version of the application, and provides a way to notify the user of an update.",
+  "homepage": "https://github.com/IceBreakerG/ngx-version-check/wiki",
+  "bugs": {
+    "url": "https://github.com/IceBreakerG/ngx-version-check/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IceBreakerG/ngx-version-check.git"
+  },
+  "keywords": [
+    "angular",
+    "angular 8",
+    "angular library",
+    "ngx",
+    "service",
+    "version check",
+    "version checking"
+  ],
   "peerDependencies": {
     "@angular/common": "^8.2.4",
     "@angular/core": "^8.2.4",
