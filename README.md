@@ -1,27 +1,96 @@
-# NgxVersionCheck
+The ngx-version-check service is an injectable Angular 8+ service for monitoring and notifying users of a new application version. The service exposes a boolean property (`NewVersionAvailable`) showing if a new version is available, or can accept a function to call to handle the actual notification. The project was created as another resource for a new framework at work.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3.
+To install, use the command:
 
-## Development server
+`npm install --save ngx-version-check`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Usage Instructions
 
-## Code scaffolding
+In your angular.json file, add the library's assets folder to the assets array:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
+"assets": [
+  "src/favicon.ico",
+  "src/assets",
+  {
+    "glob": "**/*",
+    "input": "./node_modules/ngx-version-check/assets",
+    "output": "/"
+  }
+]
+```
 
-## Build
+In your AppModule, make sure you are importing the `HttpClientModule`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
 
-## Running unit tests
+In the component you want to use for starting the service, inject the service in the constructor, and start it (with the configuration or with defaults) in the ngOnInit (or another) method:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+import { VersionCheckService } from 'ngx-version-check'
+```
 
-## Running end-to-end tests
+```
+constructor(private versionCheckService: VersionCheckService) {}
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+ngOnInit() {
+  this.versionCheckService.startVersionChecking({
+    frequency: 300000,
+    notification: this.showNotification
+  })
+}
 
-## Further help
+showNotification() {
+  // Handle how you want to display the notification to your users
+  // This method will be called by the service when a new version is available
+}
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+You can also use the service to display the version and build hash in your application as well. You can do this by making the service injection public, and using the following properties in your template:
+
+**Hash**: The build hash of the application.
+
+**Version**: The version number of the application.
+
+### Available Methods
+
+**startVersionChecking()**: Starts the version check service interval with the specified configuration.
+
+**stopVersionChecking()**: Stops the version check service interval.
+
+### Configuration
+
+**frequency**: (Defaults to 1800000 [30mins]) The time (in milliseconds) to wait between checks.
+**notification**: (Optional) The method
+
+## Build Requirements
+
+In order for the version check service to function, a post build script needs to be run after compiling your angular application so that the correct values are available to the service. The library's assets folder contains a file named `version.json` which is what will get read by the service. In your main `package.json` file, you will need a script, prefixed with `post`, to trigger the post build script, followed by a parameter, which is just the name of your project:
+
+```
+{
+  "name": "consumer",
+  "scripts": {
+    "build": "ng build --prod",
+    "postbuild": "node ./node_modules/ngx-version-check/build/post-build.js consumer"
+  }
+}
+```
+
+Note: The name of your post build script should be whatever you're using to trigger the build (ie. If your build script was named `buildmyproject`, your post built script would be `postbuildmyproject`).
+
+## Current Limitations
+
+Currently, the version check service only supports displaying date version (ie. year.month.day). There may be plans to change this in the future. Don't worry though, the service uses the build hash to compare versions, not the date.
