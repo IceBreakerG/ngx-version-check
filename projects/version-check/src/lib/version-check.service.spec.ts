@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { VersionCheckService } from './version-check.service'
-import { IVersionCheck } from 'version-check/public-api'
+import { IVersionCheck } from 'version-check'
 
 describe('VersionCheckService', () => {
   let sut: VersionCheckService

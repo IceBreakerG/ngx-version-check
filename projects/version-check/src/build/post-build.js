@@ -8,7 +8,6 @@
 const path = require('path')
 const fs = require('fs')
 const util = require('util')
-const moment = require('moment')
 
 process.argv.forEach((val, index) => {
   console.log(`${index}: ${val}`)
@@ -42,9 +41,13 @@ let mainBundleFile = ''
 let mainBundleRegexp = /^main-es2015.?([a-z0-9]*)?.js$/
 
 // Update version number with the current date of the build
-let year = moment().year()
-let month = `${moment().month() + 1 < 10 ? '0' : ''}${moment().month() + 1}`
-let day = `${moment().date() < 10 ? '0' : ''}${moment().date()}`
+// Removed the moment.js dependency
+// Courtesy of AwesomeInPerson
+// https://www.reddit.com/r/Angular2/comments/d2dim4/i_just_published_my_first_angular_8_library/ezuf9g5
+let now = new Date()
+let year = String(now.getFullYear())
+let month = String(now.getMonth() + 1).padStart(2, '0')
+let day = String(now.getDate()).padStart(2, '0')
 
 // Check if this is a new version from the same day
 let versionParts = versionFromFile.split('.')
