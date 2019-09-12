@@ -73,6 +73,7 @@ You can also use the service to display the version and build hash in your appli
 ### Configuration
 
 **frequency**: (Defaults to 1800000 [30mins]) The time (in milliseconds) to wait between checks.
+
 **notification**: (Optional) The method that handles the notification to the user that a new version is available.
 
 ## Build Requirements
