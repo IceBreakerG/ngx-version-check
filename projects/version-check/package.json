@@ -24,7 +24,7 @@
     "version checking"
   ],
   "peerDependencies": {
-    "@angular/common": "^8.2.4",
-    "@angular/core": "^8.2.4"
+    "@angular/common": ">=8.2.4",
+    "@angular/core": ">=8.2.4"
   }
 }
