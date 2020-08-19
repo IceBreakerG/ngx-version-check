@@ -1,6 +1,6 @@
 {
   "name": "ngx-version-check",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Eric Garrison"
   },
@@ -24,7 +24,10 @@
     "version checking"
   ],
   "peerDependencies": {
-    "@angular/common": "^8.2.4",
-    "@angular/core": "^8.2.4"
+    "@angular/common": ">=8.2.4",
+    "@angular/core": ">=8.2.4"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }
