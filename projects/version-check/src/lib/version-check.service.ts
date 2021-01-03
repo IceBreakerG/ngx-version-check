@@ -28,23 +28,8 @@ export class VersionCheckService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Starts the version check interval for the specified frequency.
-   * @param config The configuration parameters for the notification function and version check frequency.
-   */
-  public startVersionChecking(config: IVersionCheck = { notification: null, frequency: 1800000 }) {
-    this.versionCheckInterval = interval(config.frequency).subscribe(() => {
-      this.checkVersion(config.notification)
-    })
-  }
-
-  /** Stops the version check interval. */
-  public stopVersionChecking() {
-    this.versionCheckInterval.unsubscribe()
-  }
-
   /** Will do the call and check if the hash has changed or not. */
-  private checkVersion(notification: any) {
+  public checkVersion(notification: any) {
     // Timestamp these requests to invalidate caches
     this.http.get(`version.json?t=${new Date().getTime()}`).subscribe(
       (response: any) => {
@@ -62,6 +47,21 @@ export class VersionCheckService {
         console.error(err, 'Error checking version')
       }
     )
+  }
+
+  /**
+   * Starts the version check interval for the specified frequency.
+   * @param config The configuration parameters for the notification function and version check frequency.
+   */
+  public startVersionChecking(config: IVersionCheck = { notification: null, frequency: 1800000 }) {
+    this.versionCheckInterval = interval(config.frequency).subscribe(() => {
+      this.checkVersion(config.notification)
+    })
+  }
+
+  /** Stops the version check interval. */
+  public stopVersionChecking() {
+    this.versionCheckInterval.unsubscribe()
   }
 
   /**

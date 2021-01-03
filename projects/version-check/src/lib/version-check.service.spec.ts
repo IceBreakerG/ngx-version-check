@@ -22,6 +22,7 @@ describe('VersionCheckService', () => {
   })
 
   it('should have public methods defined', () => {
+    expect(sut['checkVersion']).toBeDefined()
     expect(sut['startVersionChecking']).toBeDefined()
     expect(sut['stopVersionChecking']).toBeDefined()
   })
