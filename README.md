@@ -66,6 +66,8 @@ You can also use the service to display the version and build hash in your appli
 
 ### Available Methods
 
+**checkVersion(notification: any)**: Checks the version of the application manually without an interval, and calls the notification method passed in if a new version is available.
+
 **startVersionChecking()**: Starts the version check service interval with the specified configuration.
 
 **stopVersionChecking()**: Stops the version check service interval.
