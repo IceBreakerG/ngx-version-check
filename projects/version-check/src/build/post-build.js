@@ -9,14 +9,23 @@ const path = require('path')
 const fs = require('fs')
 const util = require('util')
 
+console.log('Starting post build [ngx-version-check]\n')
+
 process.argv.forEach((val, index) => {
   console.log(`${index}: ${val}`)
 })
 
 let project = process.argv[2]
-let basePath = path.join(__dirname, `../../../dist/${project}/`)
 
 console.log(`\nProject: ${project}`)
+
+if (!project) {
+  console.log('Project name parameter is undefined. Using the /dist folder')
+}
+
+let outputDirectory = project ? `../../../dist/${project}/` : `../../../dist/`
+let basePath = path.join(__dirname, outputDirectory)
+
 console.log(`Base Path: ${basePath}`)
 
 // Get application version from package.json
@@ -27,7 +36,7 @@ const readDir = util.promisify(fs.readdir)
 const writeFile = util.promisify(fs.writeFile)
 const readFile = util.promisify(fs.readFile)
 
-console.log('\nRunning post-build tasks')
+console.log('\nRunning post-build tasks [ngx-version-check]')
 
 // our version.json will be in the dist folder
 const versionFilePath = `${basePath}version.json`
@@ -59,13 +68,15 @@ if (versionParts.length > 3) {
 
 let appVersion = `${year}.${month}.${day}${revision}`
 
-console.log(`Current Version From File: ${versionFromFile}`)
+// This currently doesn't make sense. Need to re-evaluate the use case for this
+// console.log(`Current Version From File: ${versionFromFile}`)
 
 if (versionFromFile === appVersion) {
   appVersion = appVersion.concat('.1')
 }
 
-console.log(`Changed Version To: ${appVersion}`)
+// This is currently not needed based on the current version, since it's currently unavailable
+// console.log(`Changed Version To: ${appVersion}`)
 
 // read the dist folder files and find the one we're looking for
 readDir(`${basePath}`)
@@ -102,6 +113,7 @@ readDir(`${basePath}`)
     return readFile(mainFilepath, 'utf8').then(mainFileData => {
       console.log(`Application Version: ${appVersion}`)
       console.log(`Application Hash: ${mainHash}`)
+      console.log('End post build [ngx-version-check]\n')
 
       const replacedFile = mainFileData
         .replace('{{POST_BUILD_ENTERS_HASH_HERE}}', mainHash)
