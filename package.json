@@ -4,14 +4,17 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
+    "build-dev": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dev": "ng serve --host=0.0.0.0 --disable-host-check",
     "create-package": "npm run build-library && npm run package-library",
+    "create-package-unix": "npm run build-library-unix && npm run package-library",
     "build-library": "ng build version-check --prod",
     "build-library-unix": "ng build version-check --prod",
+    "postbuild": "node projects/version-check/src/build/post-build.js",
     "postbuild-library": "xcopy /i /y /z projects\\version-check\\src\\build\\* dist\\version-check\\build && xcopy /i /y /z projects\\version-check\\src\\assets\\* dist\\version-check\\assets",
     "postbuild-library-unix": "cp -R projects/version-check/src/build dist/version-check/build && cp -R projects/version-check/src/assets dist/version-check/assets",
     "package-library": "cd dist/version-check && npm pack"
