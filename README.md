@@ -80,7 +80,7 @@ You can also use the service to display the version and build hash in your appli
 
 ## Build Requirements
 
-In order for the version check service to function, a post build script needs to be run after compiling your angular application so that the correct values are available to the service. The library's assets folder contains a file named `version.json` which is what will get read by the service. In your main `package.json` file, you will need a script, prefixed with `post`, to trigger the post build script, followed by a parameter, which is just the name of your project:
+In order for the version check service to function, a post build script needs to be run after compiling your angular application so that the correct values are available to the service. The library's assets folder contains a file named `version.json` which is what will get read by the service. In your main `package.json` file, you will need a script, prefixed with `post`, to trigger the post build script, followed by an optional parameter, which is just the name of your project:
 
 ```
 {
@@ -92,7 +92,9 @@ In order for the version check service to function, a post build script needs to
 }
 ```
 
-Note: The name of your post build script should be whatever you're using to trigger the build (ie. If your build script was named `buildmyproject`, your post built script would be `postbuildmyproject`).
+Notes:
+- The project name is now optional as of version 1.0.5. If your `outputPath` is set to `dist`, leaving out the project name parameter will use the base `dist` output folder.
+- The name of your post build script should be whatever you're using to trigger the build (ie. If your build script was named `buildmyproject`, your post build script would be `postbuildmyproject`).
 
 ## Current Limitations
 
