@@ -1,6 +1,6 @@
 {
   "name": "ngx-version-check",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "author": {
     "name": "Eric Garrison"
   },
@@ -20,6 +20,8 @@
     "angular 9",
     "angular 10",
     "angular 11",
+    "angular 12",
+    "angular 13",
     "angular library",
     "ngx",
     "service",

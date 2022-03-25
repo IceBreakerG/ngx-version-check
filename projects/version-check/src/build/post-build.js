@@ -1,9 +1,11 @@
+'use strict'
+
 /**
  * Author: Henrik Peinar
  * https://blog.nodeswat.com/automagic-reload-for-clients-after-deploy-with-angular-4-8440c9fdd96c
  *
  * Modified and Adapted By: Eric Garrison
- * Updated for the Angular Version Check Library on 9/9/2019
+ * Updated for the Angular Version Check Library on 3/24/2022
  */
 const path = require('path')
 const fs = require('fs')
@@ -45,12 +47,13 @@ console.log(`Version File Path: ${basePath}`)
 
 let mainHash = ''
 let mainBundleFile = ''
+let main2015BundleFile = ''
 
-// RegExp to find main-es2015.bundle.js, even if it doesn't include a hash in it's name (dev build)
-let mainBundleRegexp = /^main-es2015.?([a-z0-9]*)?.js$/
+// RegExp to find main.bundle.js and main-es2015.bundle.js, even if it doesn't include a hash in it's name (dev build)
+let mainBundleRegexp = /^main.?([a-z0-9]*)?.js$/
+let main2015BundleRegexp = /^main-es2015.?([a-z0-9]*)?.js$/
 
 // Update version number with the current date of the build
-// Removed the moment.js dependency
 // Courtesy of AwesomeInPerson
 // https://www.reddit.com/r/Angular2/comments/d2dim4/i_just_published_my_first_angular_8_library/ezuf9g5
 let now = new Date()
@@ -68,23 +71,31 @@ if (versionParts.length > 3) {
 
 let appVersion = `${year}.${month}.${day}${revision}`
 
-// This currently doesn't make sense. Need to re-evaluate the use case for this
-// console.log(`Current Version From File: ${versionFromFile}`)
-
 if (versionFromFile === appVersion) {
   appVersion = appVersion.concat('.1')
 }
-
-// This is currently not needed based on the current version, since it's currently unavailable
-// console.log(`Changed Version To: ${appVersion}`)
 
 // read the dist folder files and find the one we're looking for
 readDir(`${basePath}`)
   .then(files => {
     mainBundleFile = files.find(f => mainBundleRegexp.test(f))
+    main2015BundleFile = files.find(f => main2015BundleRegexp.test(f))
 
     if (mainBundleFile) {
+      console.log('Main Bundle: ', mainBundleFile)
+
       let matchHash = mainBundleFile.match(mainBundleRegexp)
+
+      // if it has a hash in it's name, mark it down
+      if (matchHash.length > 1 && !!matchHash[1]) {
+        mainHash = matchHash[1]
+      }
+    }
+
+    if (main2015BundleFile) {
+      console.log('Main 2015 Bundle: ', main2015BundleFileBundleFile)
+
+      let matchHash = main2015BundleFile.match(main2015BundleRegexp)
 
       // if it has a hash in it's name, mark it down
       if (matchHash.length > 1 && !!matchHash[1]) {
@@ -101,26 +112,51 @@ readDir(`${basePath}`)
   })
   .then(() => {
     // main bundle file not found, dev build?
-    if (!mainBundleFile) {
+    if (!mainBundleFile && !main2015BundleFile) {
+      console.log('Main bundle not found, exiting...')
       return
     }
 
-    console.log(`Replacing hash in the ${mainBundleFile}`)
+    // Write the hash and version to the main.js file if it is present
+    if (mainBundleFile) {
+      console.log(`Replacing hash in the ${mainBundleFile}`)
 
-    // Replace the hash and version placeholders in our main.js file so the code knows the current hash and version
-    const mainFilepath = `${basePath}${mainBundleFile}`
+      // Replace the hash and version placeholders in our main.js file so the code knows the current hash and version
+      const mainFilepath = `${basePath}${mainBundleFile}`
 
-    return readFile(mainFilepath, 'utf8').then(mainFileData => {
-      console.log(`Application Version: ${appVersion}`)
-      console.log(`Application Hash: ${mainHash}`)
-      console.log('End post build [ngx-version-check]\n')
+      readFile(mainFilepath, 'utf8').then(mainFileData => {
+        console.log(`Application Version: ${appVersion}`)
+        console.log(`Application Hash: ${mainHash}`)
 
-      const replacedFile = mainFileData
-        .replace('{{POST_BUILD_ENTERS_HASH_HERE}}', mainHash)
-        .replace('{{POST_BUILD_ENTERS_VERSION_HERE}}', appVersion)
+        const replacedFile = mainFileData
+          .replace('{{POST_BUILD_ENTERS_HASH_HERE}}', mainHash)
+          .replace('{{POST_BUILD_ENTERS_VERSION_HERE}}', appVersion)
 
-      return writeFile(mainFilepath, replacedFile)
-    })
+        return writeFile(mainFilepath, replacedFile)
+      })
+    }
+
+    // Write the hash and version to the main-es2015.js file if it is present
+    if (main2015BundleFile) {
+      console.log(`Replacing hash in the ${main2015BundleFile}`)
+
+      // Replace the hash and version placeholders in our main.js file so the code knows the current hash and version
+      const main2015Filepath = `${basePath}${main2015BundleFile}`
+
+      readFile(main2015Filepath, 'utf8').then(mainFileData => {
+        console.log(`Application Version: ${appVersion}`)
+        console.log(`Application Hash: ${mainHash}`)
+
+        const replacedFile = mainFileData
+          .replace('{{POST_BUILD_ENTERS_HASH_HERE}}', mainHash)
+          .replace('{{POST_BUILD_ENTERS_VERSION_HERE}}', appVersion)
+
+        return writeFile(mainFilepath, replacedFile)
+      })
+    }
+
+    console.log('End post build [ngx-version-check]\n')
+    return
   })
   .catch(err => {
     console.log('Error with post build:', err)

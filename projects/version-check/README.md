@@ -4,6 +4,10 @@ To install, use the command:
 
 `npm install --save ngx-version-check`
 
+## About version 1.1.0
+
+Version 1.1.0 of ngx-version-check adds support for Angular 13+ projects. I've tried to maintain compatibility with older projects, but if there are any errors, please add an issue with as much information and details about your project (Angular version, node version, npm version, etc) as possible for troubleshooting.
+
 ## Usage Instructions
 
 In your angular.json file, add the library's assets folder to the assets array:

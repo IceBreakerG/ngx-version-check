@@ -4,6 +4,10 @@ To install, use the command:
 
 `npm install --save ngx-version-check`
 
+## About version 1.1.0
+
+Version 1.1.0 of ngx-version-check adds support for Angular 13+ projects. I've tried to maintain compatibility with older projects, but if there are any errors, please add an issue with as much information and details about your project (Angular version, node version, npm version, etc) as possible for troubleshooting.
+
 ## Usage Instructions
 
 In your angular.json file, add the library's assets folder to the assets array:
@@ -93,7 +97,8 @@ In order for the version check service to function, a post build script needs to
 ```
 
 Notes:
-- The __*outputPath directory parameter*__ is now optional as of version 1.0.5. If your `outputPath` property is set to `dist`, leaving out the project name parameter will now use the base `dist` output folder.
+
+- The **_outputPath directory parameter_** is now optional as of version 1.0.5. If your `outputPath` property is set to `dist`, leaving out the project name parameter will now use the base `dist` output folder.
 - The name of your post build script should be whatever you're using to trigger the build (ie. If your build script was named `buildmyproject`, your post build script would be `postbuildmyproject`).
 
 ## Current Limitations
