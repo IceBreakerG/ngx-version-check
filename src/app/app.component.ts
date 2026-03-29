@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { VersionCheckService } from 'version-check'
+import { VersionCheckService } from 'ngx-version-check'
 
 @Component({
   selector: 'app-root',

@@ -14,7 +14,7 @@
     "create-package-unix": "npm run build-library-unix && npm run package-library",
     "build-library": "ng build version-check --prod",
     "build-library-unix": "ng build version-check --prod",
-    "postbuild": "node projects/version-check/src/build/post-build.js",
+    "postbuild": "node ./node_modules/ngx-version-check/build/post-build.js ngx-version-check",
     "postbuild-library": "xcopy /i /y /z projects\\version-check\\src\\build\\* dist\\version-check\\build && xcopy /i /y /z projects\\version-check\\src\\assets\\* dist\\version-check\\assets",
     "postbuild-library-unix": "cp -R projects/version-check/src/build dist/version-check/build && cp -R projects/version-check/src/assets dist/version-check/assets",
     "package-library": "cd dist/version-check && npm pack"
@@ -30,6 +30,7 @@
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
     "moment": "^2.24.0",
+    "ngx-version-check": "file:dist/version-check/ngx-version-check-1.2.0.tgz",
     "rxjs": "~6.6.2",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.5"
