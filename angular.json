@@ -69,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-version-check:build"
+            "buildTarget": "ngx-version-check:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-version-check:build:production"
+              "buildTarget": "ngx-version-check:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-version-check:build"
+            "buildTarget": "ngx-version-check:build"
           }
         },
         "test": {
