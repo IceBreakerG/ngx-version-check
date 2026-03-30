@@ -42,7 +42,7 @@ export class VersionCheckService {
   /** Will do the call and check if the hash has changed or not. */
   public checkVersion(notification: any) {
     // Timestamp these requests to invalidate caches
-    this.http.get(`version.json?t=${new Date().getTime()}`).subscribe(
+    this.#http.get(`version.json?t=${new Date().getTime()}`).subscribe(
       (response: any) => {
         this.#newVersionAvailable =
           this.hasHashChanged(this.#currentHash, response.hash) ||
