@@ -15,7 +15,7 @@
     "create-package-unix": "npm run build-library-unix && npm run package-library",
     "build-library": "nx build version-check --configuration production",
     "build-library-unix": "nx build version-check --configuration production",
-    "postbuild": "node ./node_modules/ngx-version-check/build/post-build.js ngx-version-check",
+    "postbuild": "node projects/version-check/src/build/post-build.js ngx-version-check",
     "postbuild-library": "node -e \"const fs=require('fs');fs.cpSync('projects/version-check/src/build','dist/version-check/build',{recursive:true,force:true});fs.cpSync('projects/version-check/src/assets','dist/version-check/assets',{recursive:true,force:true});\"",
     "postbuild-library-unix": "cp -R projects/version-check/src/build dist/version-check/build && cp -R projects/version-check/src/assets dist/version-check/assets",
     "package-library": "cd dist/version-check && npm pack"

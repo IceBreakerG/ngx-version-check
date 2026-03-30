@@ -25,7 +25,7 @@ if (!project) {
   console.log('Project name parameter is undefined. Using the /dist folder')
 }
 
-let outputDirectory = project ? `../../../dist/${project}/` : `../../../dist/`
+let outputDirectory = project ? `../../../../dist/${project}/browser/` : `../../../../dist/`
 let basePath = path.join(__dirname, outputDirectory)
 
 console.log(`Base Path: ${basePath}`)
