@@ -11,20 +11,12 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
     "paths": {
-      "version-check": [
-        "dist/version-check"
-      ],
-      "version-check/*": [
-        "dist/version-check/*"
-      ]
+      "ngx-version-check": ["projects/version-check/src/public-api.ts"],
+      "version-check": ["dist/version-check"],
+      "version-check/*": ["dist/version-check/*"]
     }
   },
   "angularCompilerOptions": {
