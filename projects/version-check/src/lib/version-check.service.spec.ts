@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { VersionCheckService } from './version-check.service'
 import { IVersionCheck } from 'version-check'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('VersionCheckService', () => {
   let sut: VersionCheckService
@@ -9,9 +10,9 @@ describe('VersionCheckService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: []
-    })
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+})
 
     sut = TestBed.get(VersionCheckService)
   })
