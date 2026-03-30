@@ -1,6 +1,6 @@
 // Angular Imports
 import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core'
-// import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import { interval, Subscription } from 'rxjs'
 
 // Local Imports
