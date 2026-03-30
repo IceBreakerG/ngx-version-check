@@ -1,10 +1,10 @@
 {
   "name": "ngx-version-check",
-  "version": "1.2.0",
+  "version": "21.0.0",
   "author": {
     "name": "Eric Garrison"
   },
-  "description": "Angular 8+ library for version checking.  When a new build is deployed, and customers are currently using the application, this will monitor the version of the application, and provides a way to notify the user of an update.",
+  "description": "Angular 21+ library for version checking.  When a new build is deployed, and customers are currently using the application, this will monitor the version of the application, and provides a way to notify the user of an update.",
   "homepage": "https://github.com/IceBreakerG/ngx-version-check/wiki",
   "bugs": {
     "url": "https://github.com/IceBreakerG/ngx-version-check/issues"
@@ -16,13 +16,7 @@
   },
   "keywords": [
     "angular",
-    "angular 8",
-    "angular 9",
-    "angular 10",
-    "angular 11",
-    "angular 12",
-    "angular 13",
-    "angular 14",
+    "angular 21",
     "angular library",
     "ngx",
     "service",
@@ -30,8 +24,8 @@
     "version checking"
   ],
   "peerDependencies": {
-    "@angular/common": ">=8.2.4",
-    "@angular/core": ">=8.2.4"
+    "@angular/common": ">=21.0.0",
+    "@angular/core": ">=21.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
