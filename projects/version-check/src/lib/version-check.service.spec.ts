@@ -14,11 +14,11 @@ describe('VersionCheckService', () => {
     providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 })
 
-    sut = TestBed.get(VersionCheckService)
+    sut = TestBed.inject(VersionCheckService)
   })
 
   it('should be created', () => {
-    const service: VersionCheckService = TestBed.get(VersionCheckService)
+    const service: VersionCheckService = TestBed.inject(VersionCheckService)
     expect(service).toBeTruthy()
   })
 
