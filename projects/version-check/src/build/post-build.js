@@ -50,8 +50,8 @@ let mainBundleFile = ''
 let main2015BundleFile = ''
 
 // RegExp to find main.bundle.js and main-es2015.bundle.js, even if it doesn't include a hash in it's name (dev build)
-let mainBundleRegexp = /^main.?([a-z0-9]*)?.js$/
-let main2015BundleRegexp = /^main-es2015.?([a-z0-9]*)?.js$/
+let mainBundleRegexp = /^main.?([a-zA-Z0-9]*)?.js$/
+let main2015BundleRegexp = /^main-es2015.?([a-zA-Z0-9]*)?.js$/
 
 // Update version number with the current date of the build
 // Courtesy of AwesomeInPerson
