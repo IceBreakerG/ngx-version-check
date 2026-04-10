@@ -1,5 +1,5 @@
 {
-  "name": "ngx-version-check",
+  "name": "ngx-version-check-workspace",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

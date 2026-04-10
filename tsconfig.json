@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "moduleResolution": "bundler"
   },
+  "extends": "./tsconfig.base.json",
   "files": [],
   "references": [
     {
