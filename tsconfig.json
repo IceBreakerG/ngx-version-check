@@ -13,16 +13,16 @@
   "files": [],
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "./apps/version-check-demo/tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "./apps/version-check-demo/tsconfig.spec.json"
     },
     {
-      "path": "./projects/version-check/tsconfig.lib.json"
+      "path": "./libs/ngx-version-check/tsconfig.lib.json"
     },
     {
-      "path": "./projects/version-check/tsconfig.spec.json"
+      "path": "./libs/ngx-version-check/tsconfig.spec.json"
     }
   ]
 }

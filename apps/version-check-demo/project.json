@@ -1,31 +1,39 @@
 {
-  "$schema": "node_modules/nx/schemas/project-schema.json",
-  "name": "ngx-version-check",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "version-check-demo",
   "projectType": "application",
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
     }
   },
-  "sourceRoot": "src",
+  "sourceRoot": "apps/version-check-demo/src",
   "prefix": "app",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": [
+            "ngx-version-check"
+          ]
+        }
+      ],
       "options": {
         "outputPath": {
-          "base": "dist/ngx-version-check"
+          "base": "dist/version-check-demo"
         },
-        "index": "src/index.html",
+        "index": "apps/version-check-demo/src/index.html",
         "polyfills": [
-          "src/polyfills.ts"
+          "apps/version-check-demo/src/polyfills.ts"
         ],
-        "tsConfig": "tsconfig.app.json",
+        "tsConfig": "apps/version-check-demo/tsconfig.app.json",
         "aot": true,
         "assets": [
-          "src/favicon.ico",
-          "src/assets",
-          "src/version.json",
+          "apps/version-check-demo/src/favicon.ico",
+          "apps/version-check-demo/src/assets",
+          "apps/version-check-demo/src/version.json",
           {
             "glob": "**/*",
             "input": "./node_modules/ngx-version-check/assets",
@@ -33,17 +41,17 @@
           }
         ],
         "styles": [
-          "src/styles.scss"
+          "apps/version-check-demo/src/styles.scss"
         ],
         "scripts": [],
-        "browser": "src/main.ts"
+        "browser": "apps/version-check-demo/src/main.ts"
       },
       "configurations": {
         "production": {
           "fileReplacements": [
             {
-              "replace": "src/environments/environment.ts",
-              "with": "src/environments/environment.prod.ts"
+              "replace": "apps/version-check-demo/src/environments/environment.ts",
+              "with": "apps/version-check-demo/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -72,33 +80,33 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "buildTarget": "ngx-version-check:build"
+        "buildTarget": "version-check-demo:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "ngx-version-check:build:production"
+          "buildTarget": "version-check-demo:build:production"
         }
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "ngx-version-check:build"
+        "buildTarget": "version-check-demo:build"
       }
     },
     "test": {
       "executor": "@angular-devkit/build-angular:karma",
       "options": {
-        "main": "src/test.ts",
-        "polyfills": "src/polyfills.ts",
-        "tsConfig": "tsconfig.spec.json",
-        "karmaConfig": "karma.conf.js",
+        "main": "apps/version-check-demo/src/test.ts",
+        "polyfills": "apps/version-check-demo/src/polyfills.ts",
+        "tsConfig": "apps/version-check-demo/tsconfig.spec.json",
+        "karmaConfig": "apps/version-check-demo/karma.conf.js",
         "assets": [
-          "src/favicon.ico",
-          "src/assets"
+          "apps/version-check-demo/src/favicon.ico",
+          "apps/version-check-demo/src/assets"
         ],
         "styles": [
-          "src/styles.scss"
+          "apps/version-check-demo/src/styles.scss"
         ],
         "scripts": []
       }
@@ -107,25 +115,12 @@
       "executor": "@angular-devkit/build-angular:tslint",
       "options": {
         "tsConfig": [
-          "tsconfig.app.json",
-          "tsconfig.spec.json",
-          "e2e/tsconfig.json"
+          "apps/version-check-demo/tsconfig.app.json",
+          "apps/version-check-demo/tsconfig.spec.json"
         ],
         "exclude": [
           "**/node_modules/**"
         ]
-      }
-    },
-    "e2e": {
-      "executor": "@angular-devkit/build-angular:protractor",
-      "options": {
-        "protractorConfig": "e2e/protractor.conf.js",
-        "devServerTarget": "ngx-version-check:serve"
-      },
-      "configurations": {
-        "production": {
-          "devServerTarget": "ngx-version-check:serve:production"
-        }
       }
     }
   }

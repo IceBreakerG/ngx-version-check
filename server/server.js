@@ -7,10 +7,10 @@ const app = express()
 
 const port = process.env.PORT || 4200
 
-app.use(express.static(path.join(__dirname, '../dist/ngx-version-check/browser')))
+app.use(express.static(path.join(__dirname, '../dist/version-check-demo/browser')))
 
 app.get('/{*any}', (req, res) =>
-  res.sendFile('index.html', { root: path.join(__dirname, '../dist/ngx-version-check/browser') })
+  res.sendFile('index.html', { root: path.join(__dirname, '../dist/version-check-demo/browser') })
 )
 
 http.createServer(app).listen(port, () => {

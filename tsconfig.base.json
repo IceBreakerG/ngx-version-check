@@ -14,9 +14,7 @@
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2020", "dom"],
     "paths": {
-      "ngx-version-check": ["projects/version-check/src/public-api.ts"],
-      "version-check": ["dist/version-check"],
-      "version-check/*": ["dist/version-check/*"]
+      "ngx-version-check": ["libs/ngx-version-check/src/public-api.ts"]
     }
   },
   "angularCompilerOptions": {

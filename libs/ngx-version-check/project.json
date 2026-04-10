@@ -1,0 +1,37 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "ngx-version-check",
+  "projectType": "library",
+  "sourceRoot": "libs/ngx-version-check/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "tsConfig": "libs/ngx-version-check/tsconfig.lib.json",
+        "project": "libs/ngx-version-check/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/ngx-version-check/tsconfig.lib.prod.json"
+        }
+      },
+      "outputs": ["{workspaceRoot}/dist/ngx-version-check"]
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/ngx-version-check/src/test.ts",
+        "tsConfig": "libs/ngx-version-check/tsconfig.spec.json",
+        "karmaConfig": "libs/ngx-version-check/karma.conf.js"
+      }
+    },
+    "lint": {
+      "executor": "@angular-devkit/build-angular:tslint",
+      "options": {
+        "tsConfig": ["libs/ngx-version-check/tsconfig.lib.json", "libs/ngx-version-check/tsconfig.spec.json"],
+        "exclude": ["**/node_modules/**"]
+      }
+    }
+  }
+}
