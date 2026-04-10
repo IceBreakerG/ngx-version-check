@@ -1,21 +1,23 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "name": "version-check-demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "sourceRoot": "apps/version-check-demo/src",
+  "prefix": "app",
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
     }
   },
-  "sourceRoot": "apps/version-check-demo/src",
-  "prefix": "app",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "dependsOn": [
         {
           "target": "build",
-          "projects": ["ngx-version-check"]
+          "projects": [
+            "ngx-version-check"
+          ]
         }
       ],
       "options": {
@@ -23,7 +25,9 @@
           "base": "dist/version-check-demo"
         },
         "index": "apps/version-check-demo/src/index.html",
-        "polyfills": ["apps/version-check-demo/src/polyfills.ts"],
+        "polyfills": [
+          "apps/version-check-demo/src/polyfills.ts"
+        ],
         "tsConfig": "apps/version-check-demo/tsconfig.app.json",
         "aot": true,
         "assets": [
@@ -36,7 +40,9 @@
             "output": "/"
           }
         ],
-        "styles": ["apps/version-check-demo/src/styles.scss"],
+        "styles": [
+          "apps/version-check-demo/src/styles.scss"
+        ],
         "scripts": [],
         "browser": "apps/version-check-demo/src/main.ts"
       },
@@ -67,7 +73,9 @@
           ]
         }
       },
-      "outputs": ["{options.outputPath.base}"]
+      "outputs": [
+        "{options.outputPath.base}"
+      ]
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -93,17 +101,18 @@
         "polyfills": "apps/version-check-demo/src/polyfills.ts",
         "tsConfig": "apps/version-check-demo/tsconfig.spec.json",
         "karmaConfig": "apps/version-check-demo/karma.conf.js",
-        "assets": ["apps/version-check-demo/src/favicon.ico", "apps/version-check-demo/src/assets"],
-        "styles": ["apps/version-check-demo/src/styles.scss"],
+        "assets": [
+          "apps/version-check-demo/src/favicon.ico",
+          "apps/version-check-demo/src/assets"
+        ],
+        "styles": [
+          "apps/version-check-demo/src/styles.scss"
+        ],
         "scripts": []
       }
     },
     "lint": {
-      "executor": "@angular-devkit/build-angular:tslint",
-      "options": {
-        "tsConfig": ["apps/version-check-demo/tsconfig.app.json", "apps/version-check-demo/tsconfig.spec.json"],
-        "exclude": ["**/node_modules/**"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }

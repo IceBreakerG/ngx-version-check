@@ -1,6 +1,6 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "name": "ngx-version-check",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/ngx-version-check/src",
   "prefix": "lib",
@@ -27,11 +27,7 @@
       }
     },
     "lint": {
-      "executor": "@angular-devkit/build-angular:tslint",
-      "options": {
-        "tsConfig": ["libs/ngx-version-check/tsconfig.lib.json", "libs/ngx-version-check/tsconfig.spec.json"],
-        "exclude": ["**/node_modules/**"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }
