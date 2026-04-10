@@ -2,6 +2,10 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
+    "baseUrl": "../../",
+    "paths": {
+      "ngx-version-check": ["libs/ngx-version-check/src/public-api.ts"]
+    },
     "types": ["jasmine", "node"]
   },
   "files": ["src/test.ts", "src/polyfills.ts"],
